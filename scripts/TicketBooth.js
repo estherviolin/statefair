@@ -28,15 +28,37 @@ eventHub.addEventListener("click", customEvent => {
     }
 }
 )
+
+//custom event for any ticket purchased to dispatch to TotalTickets.js
+eventHub.addEventListener("click", eventObj => {
+    if(event.target.id === "gameTicket" ||
+    event.target.id === "rideTicket" ||
+    event.target.id === "sideshowTicket" ||
+    event.target.id === "foodTicket" ||
+    event.target.id === "fullPackageTicket"
+    ) {
+
+        const ticketEvent = new CustomEvent ("ticketPurchased", {
+            detail: {
+                ticketCount: event.target.value,
+            }
+        })
+
+    eventHub.dispatchEvent(ticketEvent)
+
+    }
+})
+
+
 //adds all the buttons
 export const TicketBooth = () => {
     contentTarget.innerHTML = `
         <div class="ticketBooth">
-        <button id="rideTicket">Ride Ticket</button>
-        <button id="foodTicket">Food Ticket</button>
-        <button id="gameTicket">Game Ticket</button>
-        <button id="sideshowTicket">Sideshow Ticket</button>
-        <button id="fullPackageTicket">Full Package Ticket</button>
+        <button id="rideTicket" value="1">Ride Ticket</button>
+        <button id="foodTicket" value="1">Food Ticket</button>
+        <button id="gameTicket" value="1">Game Ticket</button>
+        <button id="sideshowTicket" value="1">Sideshow Ticket</button>
+        <button id="fullPackageTicket" value="4">Full Package Ticket</button>
         </div>
     `
 
